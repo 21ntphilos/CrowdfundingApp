@@ -32,6 +32,24 @@
 				"type": "constructor"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					}
+				],
+				"name": "addTier",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "campaignName",
 				"outputs": [
@@ -71,7 +89,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_tierIndex",
+						"type": "uint256"
+					}
+				],
 				"name": "fund",
 				"outputs": [],
 				"stateMutability": "payable",
@@ -92,6 +116,36 @@
 			},
 			{
 				"inputs": [],
+				"name": "getTiers",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "backers",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct CrowdFunding.Tier[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "owner",
 				"outputs": [
 					{
@@ -104,12 +158,67 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_index",
+						"type": "uint256"
+					}
+				],
+				"name": "removeTier",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "state",
+				"outputs": [
+					{
+						"internalType": "enum CrowdFunding.CampaignState",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "targetAmount",
 				"outputs": [
 					{
 						"internalType": "uint256",
 						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "tiers",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "backers",
 						"type": "uint256"
 					}
 				],
@@ -152,10 +261,11 @@
 	},
 	"sources": {
 		"contracts/CrowdFunding.sol": {
-			"keccak256": "0xcd1ba4241bb40eef282132eeb52c5d6a8b7eb128c348b4830bee7ce354ca24c1",
+			"keccak256": "0x55a41e930b80195dcce137e71a27c8a766d043290aa68bb271aaae88f746ea7c",
+			"license": "MIT",
 			"urls": [
-				"bzz-raw://89f2ee62feffa420739c2a9c94f578cbd9ca10a7355bff69721d504b832eb36d",
-				"dweb:/ipfs/QmbDmjE2SSPu3829xQwUeZMwdzAqCkBJPRyGHkwd6h7JPf"
+				"bzz-raw://5932ee8a0c640f86cb2493c4fb3acc53ddf15f6c141301631b54f37c15588c3d",
+				"dweb:/ipfs/Qmd3G7s8hbgnELayHMiCh9pqPHkCRXPANxW7WPiLgY69tk"
 			]
 		}
 	},

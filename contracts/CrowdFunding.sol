@@ -1,4 +1,4 @@
-// SPDX-License Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ~0.8.0;
 
 contract CrowdFunding{
@@ -8,6 +8,8 @@ contract CrowdFunding{
     uint public targetAmount;
     uint public deadline;
     address public owner;
+    enum CampaignState{Active, Successful, Failed}
+    CampaignState public state;
 
     struct Tier{
         string name;
@@ -21,6 +23,10 @@ contract CrowdFunding{
         require (msg.sender == owner, "Only Owners Can Perform This Action");
         _;
     }
+    modifier isCampaignActive(){
+        require(state == CampaignState.Active, "Campaign is not Active");
+        _;
+    }
 
     constructor(string memory _campaignName, 
     string memory _description, 
@@ -30,8 +36,19 @@ contract CrowdFunding{
         targetAmount = _targetAmount;
         deadline = block.timestamp + (_durationInDays * 1 days);
         owner = msg.sender;
+        state = CampaignState.Active;
     }
 
+    function checkAndUpdateCampaignState() internal{
+        if(state == CampaignState.Active){
+            if(block.timestamp >= deadline){
+                    state = address(this).balance >= targetAmount? CampaignState.Successful :CampaignState.Failed;
+            }else{
+                   state = address(this).balance >= targetAmount? CampaignState.Successful :CampaignState.Active;
+                }
+            
+        }
+    }
     function addTier (uint256 _amount, string memory _name)  public onlyOwner{
         require(_amount > 0, "Amount must be greater than zero");
          tiers.push(Tier(_name,_amount, 0 ));
@@ -45,13 +62,19 @@ contract CrowdFunding{
 
     }
 
-    function fund()public payable {
-        require(msg.value > 0, "Must Fund Ammount Greater than Zero");
+    function fund(uint256 _tierIndex)public payable isCampaignActive{
         require(block.timestamp < deadline, "Campaign has ended");
+        require(_tierIndex < tiers.length, "Invalid Tier");
+       require(msg.value == tiers[_tierIndex].amount , "Tier amount does not match"); 
+
+       tiers[_tierIndex].backers++;
+
+    checkAndUpdateCampaignState();
 
     }
      function withdraw() public onlyOwner{
-        require(address(this).balance >= targetAmount , "Target amount has not been met");
+        checkAndUpdateCampaignState();
+        require(state == CampaignState.Successful , "Campaign not yet Successful");
 
         uint256 balance = address(this).balance;
 
@@ -65,25 +88,6 @@ contract CrowdFunding{
      function getBalance()public view returns (uint256){
         return address(this).balance;
     }
+    function getTiers() public view returns (Tier[] memory){return tiers;}
     
-    // function getCampaignName() public view returns(string memory){
-    //     return campaignName;
-    // }
-
-    // function getDescription() public view returns (string memory) {
-    //     return description;
-    // }
-
-    // function getTargetAmount() public view returns  (uint256 amount_) {
-    //     return targetAmount;
-    // }
-
-    // function getDeadline() public view returns(uint deadline_) {
-    //     return deadline;
-    // }
-
-    // modifier deadlineChecker(){
-    // }
-
-
 }
