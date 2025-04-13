@@ -50,6 +50,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "backers",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "totalContribution",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "campaignName",
 				"outputs": [
@@ -116,36 +135,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "getTiers",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "string",
-								"name": "name",
-								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "amount",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "backers",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct CrowdFunding.Tier[]",
-						"name": "",
-						"type": "tuple[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "owner",
 				"outputs": [
 					{
@@ -155,6 +144,13 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "refund",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -261,11 +257,11 @@
 	},
 	"sources": {
 		"contracts/CrowdFunding.sol": {
-			"keccak256": "0x55a41e930b80195dcce137e71a27c8a766d043290aa68bb271aaae88f746ea7c",
+			"keccak256": "0xb42ec4631b3a42915a13d926a2c669c1aaf568f787ece478ad071d7e671e232b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5932ee8a0c640f86cb2493c4fb3acc53ddf15f6c141301631b54f37c15588c3d",
-				"dweb:/ipfs/Qmd3G7s8hbgnELayHMiCh9pqPHkCRXPANxW7WPiLgY69tk"
+				"bzz-raw://42273901692c1d2a164a9361da604c698c9194f8ed6a197adf226ed81fdb66c2",
+				"dweb:/ipfs/QmSfUev3GV1T29c4T7RzsZUkDFW3zMvuomRXA57fVxoyvU"
 			]
 		}
 	},

@@ -17,6 +17,13 @@ contract CrowdFunding{
         uint256 backers;
     }
 
+    struct Backer{
+        uint totalContribution;
+        mapping (uint => bool) fundedTier;
+    }
+
+    mapping(address => Backer) public backers;
+
     Tier[] public tiers;
 
     modifier onlyOwner(){
@@ -68,6 +75,8 @@ contract CrowdFunding{
        require(msg.value == tiers[_tierIndex].amount , "Tier amount does not match"); 
 
        tiers[_tierIndex].backers++;
+       backers[msg.sender].fundedTier[_tierIndex] = true;
+       backers[msg.sender].totalContribution += msg.value;
 
     checkAndUpdateCampaignState();
 
@@ -88,6 +97,14 @@ contract CrowdFunding{
      function getBalance()public view returns (uint256){
         return address(this).balance;
     }
-    function getTiers() public view returns (Tier[] memory){return tiers;}
+    function refund() public {
+        checkAndUpdateCampaignState();
+        // require(state == CampaignState.Failed , "Refund is not available");
+
+
+       uint amount =  backers[msg.sender].totalContribution;
+       payable(msg.sender).transfer(amount);
+
+    }
     
 }
